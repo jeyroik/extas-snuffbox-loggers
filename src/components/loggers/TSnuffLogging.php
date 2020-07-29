@@ -18,13 +18,14 @@ trait TSnuffLogging
     use THasMagicClass;
 
     /**
+     * @param array $repos
      * @throws \Exception
      */
-    public function turnSnuffLoggingOn()
+    public function turnSnuffLoggingOn(array $repos = [])
     {
-        $this->createSnuffDynamicRepositories([
-            ['loggers', 'name', Logger::class]
-        ]);
+        $repos[] = ['loggers', 'name', Logger::class];
+
+        $this->createSnuffDynamicRepositories($repos);
 
         $this->createWithSnuffRepo('extensionRepository', new Extension([
             Extension::FIELD__CLASS => ExtensionLogger::class,
